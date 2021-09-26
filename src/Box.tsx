@@ -2,8 +2,6 @@ import * as Three from "three";
 import State from "./State";
 
 export class Box extends Three.InstancedMesh {
-  selected: boolean;
-
   constructor(
     state: State,
     cellSize: number,
@@ -79,12 +77,6 @@ export class Box extends Three.InstancedMesh {
       "visible",
       new Three.InstancedBufferAttribute(new Float32Array(visible), 1, false)
     );
-
-    // const selected = Array(rows * cols * depth).fill(0);
-    // geometry.setAttribute(
-    //   "selected",
-    //   new Three.InstancedBufferAttribute(new Float32Array(selected), 1, false)
-    // );
 
     const vertexShader = `
       varying vec2 vUv;

@@ -148,6 +148,7 @@ class View {
   showHandles() {
     this.div.style.pointerEvents = "auto";
     for (const child of Array.from(this.div.childNodes)) {
+      // @ts-ignore
       child.style.display = "block";
     }
   }
@@ -155,12 +156,14 @@ class View {
   hideHandles() {
     this.div.style.pointerEvents = "none";
     for (const child of Array.from(this.div.childNodes)) {
+      // @ts-ignore
       child.style.display = "none";
     }
   }
 
   updateColor() {
     for (const child of Array.from(this.div.childNodes)) {
+      // @ts-ignore
       child.childNodes[0].style.background = this.state.viewColor;
     }
     this.div.style.borderColor = this.state.viewColor;

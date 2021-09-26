@@ -18,10 +18,7 @@ export class SubPointer {
     switch (this.state.pointers.length) {
       case 1:
         // start 1
-        this.state.PointerOne.start(
-          this.state.pointers.slice(0, 1),
-          state.pressed
-        );
+        this.state.PointerOne.start(this.state.pointers.slice(0, 1));
         break;
       case 2:
         // start 2
@@ -148,11 +145,7 @@ const PointerComponent = ({ state }: PointerProps) => {
     };
 
     const handleMousewheel = (e: WheelEvent) => {
-      if (state.pressed.includes("v")) {
-        state.viewFinder.wheel(e.deltaY);
-      } else {
-        discreteZoom(state, e.deltaY);
-      }
+      discreteZoom(state, e.deltaY);
     };
 
     if (canvas) {

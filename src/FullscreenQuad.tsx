@@ -33,6 +33,7 @@ class FullscreenQuad {
     this.scene.add(cube);
     this.camera.position.z = 5;
 
+    // @ts-ignore
     this.material.map = this.renderTarget.texture;
   }
 }

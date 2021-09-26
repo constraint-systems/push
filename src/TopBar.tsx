@@ -239,6 +239,10 @@ export function Bars({ state, setMode }: BarProps) {
               >
                 <u>o</u>pen
               </Button>
+              <HandleShortcut
+                action={() => domLoadImage(state.loadImage.bind(state))}
+                shortcut={"o"}
+              />
               <Button
                 textColor={textColor}
                 clickHandler={() => {
@@ -311,6 +315,7 @@ export function Bars({ state, setMode }: BarProps) {
           <Button textColor={textColor} clickHandler={() => print(state)}>
             <u>p</u>rint
           </Button>
+          <HandleShortcut action={() => print(state)} shortcut={"p"} />
         </div>
       </div>
       {/* Dialogs */}

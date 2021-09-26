@@ -28,6 +28,7 @@ class PointerHover {
 
     const pressed = this.state.pressed;
     if (pressed.includes(" ")) {
+      // @ts-ignore
       this.spacePointer = new SubPointer(this.state, {
         pointerId: 999,
         clientX: this.current.x,
@@ -45,8 +46,10 @@ class PointerHover {
     this.diff.copy(this.current).sub(this.initial);
     const pressed = this.state.pressed;
     if (pressed.includes("r")) {
+      // @ts-ignore
       rotate(this.state, this);
     } else if (pressed.includes("d")) {
+      // @ts-ignore
       panCamera(this.state, this);
     }
   }

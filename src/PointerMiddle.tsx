@@ -30,6 +30,7 @@ class PointerMiddle {
     this.current.set(e.clientX, e.clientY);
     this.diff.copy(this.current).sub(this.initial);
 
+    // @ts-ignore
     rotate(this.state, this);
   }
 

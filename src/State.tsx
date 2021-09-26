@@ -20,6 +20,7 @@ class State {
   worldPixel: number;
   boxes: Array<Box>;
   group: Three.Object3D;
+  // @ts-ignore
   outlineBoxes: Three.Object3D;
   heightGrid: Array<number>;
   selectedGrid: Array<number>;
@@ -206,8 +207,6 @@ class State {
 
     this.fullscreenQuad.material.opacity = this.highlightAlpha;
     this.renderer.render(this.fullscreenQuad.scene, this.fullscreenQuad.camera);
-    // this.renderer.clearDepth();
-    // this.renderer.render(this.viewScene, this.camera);
 
     requestAnimationFrame(this.animate.bind(this));
   }

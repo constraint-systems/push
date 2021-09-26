@@ -3,7 +3,7 @@ import State from "./State";
 
 export class OutlineBox extends Three.InstancedMesh {
   state: State;
-  material: THree.ShaderMaterial;
+  material: Three.ShaderMaterial;
 
   constructor(state: State, cellSize: number, cols: number, rows: number) {
     const geometry = new Three.BoxBufferGeometry(
