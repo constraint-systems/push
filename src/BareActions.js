@@ -1,13 +1,3 @@
-const loadImage = (src) => {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.onload = function () {
-      resolve(image);
-    };
-    image.src = src;
-  });
-};
-
 export function domLoadImage(callback) {
   let input = document.querySelector("#fileInput");
   async function handleChange() {

@@ -4,40 +4,23 @@ import {
   discreteZoom,
   interruptPointerKeyDown,
   interruptPointerKeyUp,
-  panCamera,
-  print,
 } from "./Actions";
 import State from "./State";
-import { Mode } from "./App";
-import { domLoadImage } from "./BareActions";
 
 type KeyboardProps = {
   state: State;
-  setMode: React.Dispatch<React.SetStateAction<Mode>>;
-  setSettingsAreOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function Keyboard({ state, setMode, setSettingsAreOpen }: KeyboardProps) {
+function Keyboard({ state }: KeyboardProps) {
   useEffect(() => {
     // const pressed = (key: string) => {};
 
     const downHandler = (e: KeyboardEvent) => {
       let press = e.key.toLowerCase();
-      if (press === "v") {
-        setMode("view");
-      } else if (press === "o") {
-        domLoadImage(state.loadImage.bind(state));
-      } else if (press === "p") {
-        print(state);
-      } else if (press === "s") {
-        setSettingsAreOpen(true);
-      } else if (press === "-") {
+      if (press === "-") {
         discreteZoom(state, 32);
       } else if (press === "+" || press === "=") {
         discreteZoom(state, -32);
-      } else if (press === "escape") {
-        setMode("normal");
-        setSettingsAreOpen(false);
       }
       if (!state.pressed.includes(press)) {
         state.pressed.push(press);

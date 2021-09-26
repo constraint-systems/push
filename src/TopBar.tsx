@@ -32,7 +32,12 @@ function Button({
   );
 }
 
-function HandleShortcut({ action, shortcut }) {
+interface ShortcutProps {
+  action: any;
+  shortcut: string;
+}
+
+function HandleShortcut({ action, shortcut }: ShortcutProps) {
   useEffect(() => {
     const downHandler = (e: KeyboardEvent) => {
       let press = e.key.toLowerCase();
@@ -206,7 +211,7 @@ export function Bars({ state, setMode }: BarProps) {
 
   useEffect(() => {
     setMode(showView ? "view" : "normal");
-  }, [showView, state]);
+  }, [showView, state, setMode]);
 
   useEffect(() => {
     state.view.kind = viewKind;
@@ -321,7 +326,7 @@ export function Bars({ state, setMode }: BarProps) {
           image then click and drag it to pull it towards you.
         </div>
         A{" "}
-        <a href="https://constraint.systems" target="_blank">
+        <a href="https://constraint.systems" target="_blank" rel="noreferrer">
           Constraint Systems
         </a>{" "}
         project
@@ -443,6 +448,9 @@ export function Bars({ state, setMode }: BarProps) {
                 className="mr-2"
                 value="Female"
                 checked={viewKind === "window"}
+                onChange={() => {
+                  setViewKind("window");
+                }}
               />
               window
             </label>

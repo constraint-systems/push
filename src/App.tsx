@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import State from "./State";
 import PointerComponent from "./PointerComponent";
 import KeyboardComponent from "./Keyboard";
-import UI from "./UI";
 import { Bars } from "./TopBar";
 
 export type Mode = "normal" | "view";
@@ -11,7 +10,6 @@ function App() {
   const canvasRef = useRef(null!);
   const [state, setState] = useState<null | State>(null);
   const [mode, setMode] = useState<Mode>("normal");
-  const [settingsAreOpen, setSettingsAreOpen] = useState(false);
 
   useEffect(() => {
     if (state !== null) {
@@ -109,11 +107,7 @@ function App() {
       {state ? (
         <>
           <PointerComponent state={state} />
-          <KeyboardComponent
-            state={state}
-            setMode={setMode}
-            setSettingsAreOpen={setSettingsAreOpen}
-          />
+          <KeyboardComponent state={state} />
           <Bars state={state} setMode={setMode} />
         </>
       ) : null}

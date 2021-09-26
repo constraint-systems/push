@@ -1,28 +1,9 @@
 // import * as THREE from "three";
 import PointerOne from "./PointerOne";
+import Pointer from "./Pointer";
 import State from "./State";
-import Pointer from "Pointer";
 import PointerTwo from "./PointerTwo";
 import { SelectionBox } from "./SelectionBox";
-
-// export const getBoxIntersect = (
-//   boxes: Array<Box>,
-//   raycaster: Three.Raycaster
-// ) => {
-//   const intersects = raycaster.intersectObjects(boxes);
-//   if (intersects.length > 0) {
-//     const distances = intersects.map((i) => i.distance);
-//     const closest = Math.min(...distances);
-//     const index = distances.indexOf(closest);
-//     const box = intersects[index].object as Box;
-//     return box;
-//   } else {
-//     return null;
-//   }
-// };
-
-// export const getSelected = (boxes: Array<Box>) =>
-//   boxes.filter((b) => b.selected);
 
 export const checkRayIntersect = (pointer: PointerOne) => {
   // @ts-ignore
@@ -86,7 +67,7 @@ export const deSelectAndRenderCells = (state: State, index: number) => {
 
 export const toggleSelectAndRenderCells = (
   state: State,
-  pointer: Pointer,
+  pointer: PointerOne,
   index: number
 ) => {
   const gridIndex = getStackGridIndexFromInstanceIndex(state, index);
@@ -95,45 +76,6 @@ export const toggleSelectAndRenderCells = (
     renderSelected(state);
     pointer.controlIndexCache = gridIndex;
   }
-};
-
-// export const raySelect = (pointer: PointerOne) => {
-//   // @ts-ignore
-//   const selectedBuffer = pointer.state.group.geometry.attributes.selected.array;
-//   // @ts-ignore
-//   const visBuffer = pointer.state.group.geometry.attributes.visible.array;
-//   pointer.raycaster.setFromCamera(pointer.clip2, pointer.state.camera);
-//   const intersected = pointer.raycaster.intersectObject(pointer.state.group);
-//   let first = false;
-//   for (const intersect of intersected) {
-//     const index = intersect.instanceId!;
-//     if (!first && visBuffer[index]) {
-//       const allCols = Math.floor(index / pointer.state.depth);
-//       const row = Math.floor(allCols / pointer.state.cols);
-//       const col = allCols % pointer.state.cols;
-//       pointer.state.selectedGrid[row * pointer.state.cols + col] = 1;
-//       first = true;
-//     }
-//   }
-//   for (let i = 0; i < pointer.state.selectedGrid.length; i++) {
-//     if (pointer.state.selectedGrid[i]) {
-//       const row = Math.floor(i / pointer.state.cols);
-//       const col = i % pointer.state.cols;
-//       for (let d = 0; d < pointer.state.depth; d++) {
-//         selectedBuffer[
-//           row * pointer.state.cols * pointer.state.depth +
-//             col * pointer.state.depth +
-//             d
-//         ] = 1;
-//       }
-//     }
-//   }
-//   // @ts-ignore
-//   pointer.state.group.geometry.attributes.selected.needsUpdate = true;
-// };
-
-export const setPressed = (state: State, pressed: string) => {
-  // state.pressedOne = pressed;
 };
 
 export const panCameraStart = (state: State) => {
@@ -252,7 +194,7 @@ export const checkSelected = (state: State, index: number) => {
 
 export const areaSelectEnd = (
   state: State,
-  pointer: Pointer,
+  pointer: PointerOne,
   selectionBox: SelectionBox
 ) => {
   selectionBox.endPoint.copy(pointer.clip);
@@ -317,16 +259,11 @@ export const pushPullSelected = (state: State, pointer: Pointer) => {
   }
   // @ts-ignore
   state.group.geometry.attributes.visible.needsUpdate = true;
+  // @ts-ignore
   state.outlineBoxes.updateDepth();
 };
 
 export const print = (state: State) => {
-  const visibleHeight =
-    2 * Math.tan((state.camera.fov * Math.PI) / 360) * state.camera.position.z;
-  const zoomPixel = visibleHeight / window.innerHeight;
-
-  const ratio = state.worldPixel / zoomPixel;
-
   // const pw = window.innerWidth / ratio;
   const pw = window.innerWidth;
   // const ph = window.innerHeight / ratio;
