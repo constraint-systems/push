@@ -164,6 +164,12 @@ export const rotate = (state: State, pointer: Pointer) => {
   state.outlineBoxes.rotation.y = rotateY;
 };
 
+export const boundZoom = (state: State, val: number) => {
+  const min = state.camera.near + 0.1;
+  const max = state.camera.far - 0.1;
+  return Math.min(max, Math.max(min, val));
+};
+
 export const continuousZoomStart = (state: State) => {
   state.initialCameraPosition.copy(state.camera.position);
 };
@@ -179,12 +185,15 @@ export const continuousZoom = (state: State, pointer: PointerTwo) => {
   );
   const percent =
     (window.innerHeight + (radius - initialRadius) * 2) / window.innerHeight;
-  state.camera.position.z = state.initialCameraPosition.z / percent;
+  state.camera.position.z = boundZoom(
+    state,
+    state.initialCameraPosition.z / percent
+  );
 };
 
 export const discreteZoom = (state: State, change: number) => {
   const percent = (window.innerHeight - change) / window.innerHeight;
-  state.camera.position.z = state.camera.position.z / percent;
+  state.camera.position.z = boundZoom(state, state.camera.position.z / percent);
 };
 
 export const checkSelected = (state: State, index: number) => {
@@ -264,28 +273,29 @@ export const pushPullSelected = (state: State, pointer: Pointer) => {
 };
 
 export const print = (state: State) => {
+  const m = state.printMultiplier;
   // const pw = window.innerWidth / ratio;
   const pw = window.innerWidth;
   // const ph = window.innerHeight / ratio;
   const ph = window.innerHeight;
-  state.printTarget.setSize(pw, ph);
+  state.printTarget.setSize(pw * m, ph * m);
   state.printTarget.setClearColor(state.backgroundColor, state.backgroundAlpha);
   state.printTarget.render(state.scene, state.camera);
 
   const c = document.createElement("canvas");
-  c.width = state.view.diff.x;
-  c.height = state.view.diff.y;
+  c.width = state.view.diff.x * m;
+  c.height = state.view.diff.y * m;
   const ctx = c.getContext("2d")!;
   ctx.drawImage(
     state.printTarget.domElement,
-    state.view.min.x,
-    state.view.min.y,
-    state.view.diff.x,
-    state.view.diff.y,
+    state.view.min.x * m,
+    state.view.min.y * m,
+    state.view.diff.x * m,
+    state.view.diff.y * m,
     0,
     0,
-    state.view.diff.x,
-    state.view.diff.y
+    state.view.diff.x * m,
+    state.view.diff.y * m
   );
 
   let link = document.createElement("a");
@@ -304,3 +314,27 @@ export const print = (state: State) => {
     );
   });
 };
+
+export function domLoadImage(callback: any) {
+  let input = document.querySelector("#fileInput");
+  async function handleChange(this: any) {
+    for (let item of this.files) {
+      if (item.type.indexOf("image") < 0) {
+        continue;
+      }
+      let src = URL.createObjectURL(item);
+      callback(src);
+      this.removeEventListener("change", handleChange);
+    }
+  }
+  input!.addEventListener("change", handleChange);
+
+  input!.dispatchEvent(
+    new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    })
+  );
+  return input;
+}

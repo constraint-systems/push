@@ -56,6 +56,7 @@ class State {
   fullscreenQuad: FullscreenQuad;
   mode: "normal" | "view";
   isTouch: boolean;
+  printMultiplier: number;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -115,6 +116,7 @@ class State {
     this.highlightAlpha = 0.3;
     this.fullscreenQuad = new FullscreenQuad();
     this.isTouch = window.matchMedia("(pointer: coarse)").matches;
+    this.printMultiplier = 2;
 
     // set world pixel
     {

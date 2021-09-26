@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import State from "./State";
 import PointerComponent from "./PointerComponent";
 import KeyboardComponent from "./Keyboard";
-import { Bars } from "./TopBar";
+import { Bars } from "./Bars";
 
 export type Mode = "normal" | "view";
 
