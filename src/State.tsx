@@ -167,15 +167,13 @@ class State {
         this.selectedGrid = Array(cols * rows).fill(0);
         this.heightGrid = Array(cols * rows).fill(1);
 
-        const xPadded = (16 * cols) / 2 + 16 * 3;
-        const yPadded = (16 * rows) / 2 + 16 * 3;
         const ray1 = new Three.Vector2(
-          window.innerWidth / 2 - xPadded,
-          window.innerHeight / 2 - yPadded
+          window.innerWidth / 2 - (window.innerWidth / 2 - 32),
+          window.innerHeight / 2 - (window.innerHeight / 2 - 32)
         );
         const ray2 = new Three.Vector2(
-          window.innerWidth / 2 + xPadded,
-          window.innerHeight / 2 + yPadded
+          window.innerWidth / 2 + (window.innerWidth / 2 - 32),
+          window.innerHeight / 2 + (window.innerHeight / 2 - 32)
         );
         this.view.mouse1.copy(ray1);
         this.view.mouse2.copy(ray2);

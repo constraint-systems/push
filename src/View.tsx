@@ -147,6 +147,7 @@ class View {
 
   showHandles() {
     this.div.style.pointerEvents = "auto";
+    this.holder.style.zIndex = "40";
     for (const child of Array.from(this.div.childNodes)) {
       // @ts-ignore
       child.style.display = "block";
@@ -155,6 +156,7 @@ class View {
 
   hideHandles() {
     this.div.style.pointerEvents = "none";
+    this.holder.style.zIndex = "1";
     for (const child of Array.from(this.div.childNodes)) {
       // @ts-ignore
       child.style.display = "none";
