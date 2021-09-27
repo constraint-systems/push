@@ -273,7 +273,7 @@ export const pushPullSelected = (state: State, pointer: Pointer) => {
 };
 
 export const print = (state: State) => {
-  const m = state.printMultiplier * window.devicePixelRatio;
+  const m = state.printMultiplier;
   // const pw = window.innerWidth / ratio;
   const pw = window.innerWidth;
   // const ph = window.innerHeight / ratio;
@@ -283,20 +283,40 @@ export const print = (state: State) => {
   state.printTarget.render(state.scene, state.camera);
 
   const c = document.createElement("canvas");
-  c.width = state.view.diff.x * m;
-  c.height = state.view.diff.y * m;
-  const ctx = c.getContext("2d")!;
-  ctx.drawImage(
-    state.printTarget.domElement,
-    state.view.min.x * m,
-    state.view.min.y * m,
-    state.view.diff.x * m,
-    state.view.diff.y * m,
-    0,
-    0,
-    state.view.diff.x * m,
-    state.view.diff.y * m
-  );
+
+  {
+    if (state.view.kind === "fullscreen") {
+      c.width = window.innerWidth * m;
+      c.height = window.innerHeight * m;
+      const ctx = c.getContext("2d")!;
+      ctx.drawImage(
+        state.printTarget.domElement,
+        0,
+        0,
+        c.width * window.devicePixelRatio,
+        c.height * window.devicePixelRatio,
+        0,
+        0,
+        c.width,
+        c.height
+      );
+    } else {
+      c.width = state.view.diff.x * m;
+      c.height = state.view.diff.y * m;
+      const ctx = c.getContext("2d")!;
+      ctx.drawImage(
+        state.printTarget.domElement,
+        state.view.min.x * m * window.devicePixelRatio,
+        state.view.min.y * m * window.devicePixelRatio,
+        state.view.diff.x * m * window.devicePixelRatio,
+        state.view.diff.y * m * window.devicePixelRatio,
+        0,
+        0,
+        state.view.diff.x * m,
+        state.view.diff.y * m
+      );
+    }
+  }
 
   let link = document.createElement("a");
   c.toBlob(function (blob) {

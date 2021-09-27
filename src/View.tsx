@@ -180,10 +180,11 @@ class View {
       this.max.copy(this.mouse1).max(this.mouse2).min(this.botRight);
     } else if (this.kind === "fullscreen") {
       this.div.style.display = "none";
-      this.botRight.set(window.innerWidth, window.innerHeight);
       this.hideHandles();
-      this.min.copy(this.topLeft);
-      this.max.copy(this.botRight);
+      // handle in action now
+      // this.botRight.set(window.innerWidth, window.innerHeight);
+      // this.min.copy(this.topLeft);
+      // this.max.copy(this.botRight);
     }
     this.diff.copy(this.max).sub(this.min);
     this.div.style.left = this.min.x + "px";
