@@ -17,7 +17,6 @@ class PointerThree extends Pointer {
     this.initial.copy(this.current);
 
     this.diff.set(0, 0);
-    super.extras();
 
     panCameraStart(this.state);
   }
@@ -32,7 +31,6 @@ class PointerThree extends Pointer {
         .divideScalar(3);
 
       this.diff.copy(this.current).sub(this.initial);
-      super.extras();
 
       panCamera(this.state, this);
     }
@@ -40,7 +38,6 @@ class PointerThree extends Pointer {
 
   end() {
     super.end();
-    super.extras();
   }
 }
 

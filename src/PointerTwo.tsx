@@ -31,7 +31,6 @@ class PointerTwo extends Pointer {
     this.initialBetween.copy(this.between);
 
     this.diff.set(0, 0);
-    super.extras();
 
     rotateStart(this.state);
     continuousZoomStart(this.state);
@@ -45,7 +44,6 @@ class PointerTwo extends Pointer {
       this.between.copy(p1.current).sub(p2.current);
 
       this.diff.copy(this.current).sub(this.initial);
-      super.extras();
 
       rotate(this.state, this);
       continuousZoom(this.state, this);
@@ -54,7 +52,6 @@ class PointerTwo extends Pointer {
 
   end() {
     super.end();
-    super.extras();
   }
 }
 

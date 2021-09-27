@@ -79,8 +79,6 @@ class PointerOne extends Pointer {
     this.startTime = Date.now();
     this.controlIndexCache = null;
 
-    super.extras();
-
     const pressed = this.state.pressed;
     if (pressed.includes("d")) {
       panCameraStart(this.state);
@@ -97,8 +95,8 @@ class PointerOne extends Pointer {
         toggleSelectAndRenderCells(this.state, this, intersectIndex);
       }
     } else {
-      this.state.gridCache = this.state.selectedGrid.slice();
       // default
+      this.state.gridCache = this.state.selectedGrid.slice();
       this.setRay();
       const intersectIndex = checkRayIntersect(this);
       if (intersectIndex !== null) {
@@ -108,8 +106,12 @@ class PointerOne extends Pointer {
           this.pushPulling = true;
         } else {
           if (!pressed.includes("shift")) clearSelected(this.state);
-          this.selectIndexCache = intersectIndex;
-          selectAndRenderCells(this.state, intersectIndex);
+          if (isSelected) {
+            // selected and shift pass through
+          } else {
+            this.selectIndexCache = intersectIndex;
+            selectAndRenderCells(this.state, intersectIndex);
+          }
         }
       } else {
         if (!pressed.includes("shift")) clearSelected(this.state);
@@ -132,7 +134,7 @@ class PointerOne extends Pointer {
       } else if (pressed.includes("v")) {
         this.state.view.mouse2.copy(this.current);
         this.state.view.update();
-      } else if (pressed.includes("control")) {
+      } else if (pressed.includes("control") || pressed.includes("alt")) {
         this.setRay();
         const intersectIndex = checkRayIntersect(this);
         if (intersectIndex !== null) {
@@ -171,8 +173,6 @@ class PointerOne extends Pointer {
           }
         }
       }
-
-      super.extras();
     }
   }
 
@@ -194,7 +194,6 @@ class PointerOne extends Pointer {
       areaSelectEnd(this.state, this, this.selectionBox);
     }
     super.end();
-    super.extras();
   }
 }
 

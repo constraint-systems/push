@@ -145,6 +145,7 @@ const PointerComponent = ({ state }: PointerProps) => {
     };
 
     const handleMousewheel = (e: WheelEvent) => {
+      e.preventDefault();
       discreteZoom(state, e.deltaY);
     };
 

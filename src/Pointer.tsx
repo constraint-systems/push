@@ -33,30 +33,8 @@ class Pointer {
     this.diff.set(0, 0);
   }
 
-  setLogEl(el: HTMLElement) {
-    this.logEl = el;
-    this.log();
-  }
-
-  log() {
-    if (this.logEl !== null) {
-      this.logEl.innerText =
-        " " +
-        JSON.stringify(this.active) +
-        " diff " +
-        Math.round(this.diff.x) +
-        "," +
-        Math.round(this.diff.y);
-    }
-  }
-
   setMarkEl(el: HTMLElement) {
     this.markEl = el;
-    this.updateMark();
-  }
-
-  extras() {
-    this.log();
     this.updateMark();
   }
 

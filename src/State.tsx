@@ -107,6 +107,7 @@ class State {
       canvas: this.printCanvas,
       alpha: true,
     });
+    this.printTarget.setPixelRatio(window.devicePixelRatio);
     this.currentImageDims = [16, 16];
     this.viewColor = "#aaaaaa";
     this.view = new View(this, new Three.Vector2(), new Three.Vector2());

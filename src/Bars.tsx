@@ -40,7 +40,9 @@ function HandleShortcut({ action, shortcut }: ShortcutProps) {
   useEffect(() => {
     const downHandler = (e: KeyboardEvent) => {
       let press = e.key.toLowerCase();
-      if (press === shortcut) action();
+      if (!e.ctrlKey) {
+        if (press === shortcut) action();
+      }
     };
 
     window.addEventListener("keydown", downHandler);
@@ -78,10 +80,12 @@ function Dialog({
   useEffect(() => {
     const downHandler = (e: KeyboardEvent) => {
       let press = e.key.toLowerCase();
-      if (press === "escape") setDisplay(false);
-      if (press === shortcut) {
-        clearModals();
-        setDisplay(!display);
+      if (!e.ctrlKey) {
+        if (press === "escape") setDisplay(false);
+        if (press === shortcut) {
+          clearModals();
+          setDisplay(!display);
+        }
       }
     };
 
@@ -189,7 +193,6 @@ export function Bars({ state, setMode }: BarProps) {
 
   useEffect(() => {
     state.printMultiplier = is2x ? 2 : 1;
-    console.log(state.printMultiplier);
   }, [is2x, state]);
 
   useEffect(() => {
@@ -531,7 +534,7 @@ export function Bars({ state, setMode }: BarProps) {
           <div>Zoom</div>
         </div>
         <div className="flex items-center justify-between border-b pb-1 mb-1">
-          <div>Control + click and drag</div>
+          <div>Control or alt + click and drag</div>
           <div>Paint select</div>
         </div>
         <div className="flex items-center justify-between border-b pb-1 mb-1">
