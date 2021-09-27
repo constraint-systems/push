@@ -273,7 +273,7 @@ export const pushPullSelected = (state: State, pointer: Pointer) => {
 };
 
 export const print = (state: State) => {
-  const m = state.printMultiplier;
+  const m = state.printMultiplier * window.devicePixelRatio;
   // const pw = window.innerWidth / ratio;
   const pw = window.innerWidth;
   // const ph = window.innerHeight / ratio;
