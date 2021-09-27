@@ -1,4 +1,4 @@
-# Flow
+# Push
 
 <img
 src='https://raw.githubusercontent.com/constraint-systems/push/main/public/push.gif'
